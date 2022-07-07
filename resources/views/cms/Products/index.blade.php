@@ -1,7 +1,7 @@
 @extends('cms.layout')
 
-@section('title', 'products')
-@section('page-large-name', 'products')
+@section('title', 'Products')
+@section('page-large-name', 'Products')
 @section('page-small-name', 'Index')
 
 @section('styles')
@@ -38,21 +38,28 @@
                                             <th>Settings</th>
                                         </tr>
                                     </thead>
-                                    {{-- <tbody>
+                                    <tbody>
                                         @foreach ($products as $product)
                                             <tr>
                                                 <td>{{ $product->id }}</td>
                                                 <td>{{ $product->title }}</td>
-                                                <td>{{ $product->image }}</td>
+                                                <td>
+                                                        {{-- <a href="https://via.placeholder.com/1200/FFFFFF.png?text=1"
+                                                            data-toggle="lightbox" data-title="sample 1 - white"> --}}
+                                                            <img src="https://via.placeholder.com/300/111111?text=2"
+                                                                class="img-fluid mb-2" width="100" height="100"alt="white sample">
+                                                        {{-- </a> --}}
+                                                </td>
                                                 <td>{{ $product->old_price }}</td>
                                                 <td>{{ $product->new_price }}</td>
                                                 <td>{{ $product->description }}</td>
-                                                <td>{{ $product->SKV }}</td>
+                                                <td>{{ $product->skv }}</td>
                                                 <td>
                                                     <span
-                                                        class="badge @if ($product->in_stock) bg-success @else  bg-danger @endif ">{{ $category->is_active }}</span>
+                                                        class="badge @if ($product->in_stock) bg-success @else  bg-danger @endif ">{{ $product->Stock }}</span>
                                                 </td>
 
+                                                <td>{{ $product->category->title }}</td>
 
                                                 <td>{{ $product->created_at->format('y-m-d H:ma') }}</td>
                                                 <td>{{ $product->updated_at->format('y-m-d H:ma') }}</td>
@@ -64,7 +71,7 @@
                                                         </a>
 
                                                         <form method="post"
-                                                            action="{{ route('products.destroy',$product->id )}}">
+                                                            action="{{ route('products.destroy', $product->id) }}">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger">
@@ -76,7 +83,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    </tbody> --}}
+                                    </tbody>
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -90,9 +97,14 @@
         </section>
     </div>
 
-    
+
 @endsection
 
 @section('js')
 
+<script>
+    @if (session()->has('message'))
+        toastr.success('{{session()->get('message') }}')
+    @endif
+    </script>
 @endsection

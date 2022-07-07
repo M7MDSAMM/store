@@ -26,11 +26,10 @@ Route::get('/website/main', function () {
 
 
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 Route::prefix('cms/')->middleware('auth')->group(function () {
-    Route::view('pr' , 'cms.products.index');
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
 });
