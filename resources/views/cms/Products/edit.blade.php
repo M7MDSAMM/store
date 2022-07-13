@@ -82,8 +82,8 @@
                                 <label for="exampleSelectRounded0">Product's Category</label>
                                 <select class="custom-select rounded-0" id="exampleSelectRounded0" name="category_id">
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id}}">{{ $category->title }}</option>
-
+                                        <option value="{{$category->id}}" @if($category->id == $product->category_id) selected
+                                            @endif>{{$category->title}}</option>
                                     @endforeach
 
                                 </select>

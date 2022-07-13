@@ -44,11 +44,12 @@
                                                 <td>{{ $product->id }}</td>
                                                 <td>{{ $product->title }}</td>
                                                 <td>
-                                                        {{-- <a href="https://via.placeholder.com/1200/FFFFFF.png?text=1"
+                                                    {{-- <a href="https://via.placeholder.com/1200/FFFFFF.png?text=1"
                                                             data-toggle="lightbox" data-title="sample 1 - white"> --}}
-                                                            <img src="https://via.placeholder.com/300/111111?text=2"
-                                                                class="img-fluid mb-2" width="100" height="100"alt="white sample">
-                                                        {{-- </a> --}}
+                                                    <img class="img-fluid mb-2" width="100" height="100"
+                                                        src="{{ Storage::url('products/' . $product->image) }}"
+                                                        alt="product image">
+                                                    {{-- </a> --}}
                                                 </td>
                                                 <td>{{ $product->old_price }}</td>
                                                 <td>{{ $product->new_price }}</td>
@@ -102,9 +103,9 @@
 
 @section('js')
 
-<script>
-    @if (session()->has('message'))
-        toastr.success('{{session()->get('message') }}')
-    @endif
+    <script>
+        @if (session()->has('message'))
+            toastr.success('{{ session()->get('message') }}')
+        @endif
     </script>
 @endsection

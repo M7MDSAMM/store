@@ -30,6 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         //
+
         $categories = Category::where('active', true)->get();
         return response()->view('cms.products.create', ['categories' => $categories]);
     }
@@ -43,15 +44,25 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         //
+
         $product =  Product::create([
             'title' => $request->get('title'),
-            'image' => $request->get('image'),
             'new_price' => $request->get('new_price'),
             'description' => $request->get('description'),
             'skv' => $request->get('skv'),
             'in_stock' => $request->has('in_stock'),
-            'category_id' => $request->get('category_id')
+            'category_id' => $request->get('category_id'),
+
         ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $product->title . '.' . $image->getClientOriginalExtension();
+            $request->file('image')->storePubliclyAs('products', $imageName, ['disk' => 'public']);
+            $product->image = $imageName;
+        }
+
+        $product->save();
 
         if ($product) {
 
@@ -82,6 +93,7 @@ class ProductController extends Controller
     {
         //
         $categories = Category::where('active', true)->get();
+        // $product = Product::where($product->id)->get();
         return response()->view('cms.products.edit', ['categories' => $categories, 'product' => $product]);
     }
 
@@ -98,6 +110,8 @@ class ProductController extends Controller
 
         if ($request->get('new_price') != $product->new_price) {
             $old_price =  $product->new_price;
+        }else{
+            $old_price = 0;
         }
 
         $productUpdated = Product::where('product_id', $product->update([

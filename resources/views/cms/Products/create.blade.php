@@ -23,7 +23,7 @@
 
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" action="{{ route('products.store') }}">
+                        <form method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -36,11 +36,13 @@
                                     <!-- <label for="customFile">Custom File</label> -->
 
                                     <div class="custom-file">
-                                      <input type="file" class="custom-file-input" id="customFile">
-                                      <label class="custom-file-label" for="customFile">Choose file</label>
+                                      {{-- <input type="file" class="custom-file-input" id="customFile"> --}}
+                                      <input type="file" name="image"  id="image" class="form-control">
+
+                                      <label class="custom-file-label" for="image">Choose file</label>
                                     </div>
                                   </div>
- 
+
                                 <label for="new-price">Price</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
