@@ -40,6 +40,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($products as $product)
+                                        {{-- {{ dd(Storage::url('products/' . $product->image) ) }} --}}
+
                                             <tr>
                                                 <td>{{ $product->id }}</td>
                                                 <td>{{ $product->title }}</td>

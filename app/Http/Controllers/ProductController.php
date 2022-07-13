@@ -6,6 +6,7 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -114,9 +115,11 @@ class ProductController extends Controller
             $old_price = 0;
         }
 
+
+
+
         $productUpdated = Product::where('product_id', $product->update([
             'title' => $request->get('title'),
-            'image' => $request->get('image'),
             'old_price' => $old_price,
             'new_price' => $request->get('new_price'),
             'description' => $request->get('description'),
@@ -128,8 +131,21 @@ class ProductController extends Controller
         ]));
 
 
+        if ($request->hasFile('image')) {
+            Storage::disk('public')->delete("products/$product->image");
+            $image = $request->file('image');
+            $imageName = time() . '_' . $product->t . '.' . $product->getClientOriginalExtension();
+            $request->file('image')->storePubliclyAs('products', $imageName, ['disk' => 'public']);
+            $product->image = $imageName;
+        }
 
-        if ($productUpdated) {
+
+
+
+
+
+
+        if ($productUpdated ) {
             return redirect()->route('products.index')->with('message', 'Success! product Edited');
         } else {
             return back()->withErrors('failed', 'Failed! product not created');
