@@ -1,8 +1,8 @@
 @extends('cms.layout')
 
 @section('title','DEMO')
-@section('page-large-name','DEMO')
-@section('page-small-name','Demo')
+@section('page-large-name','Products')
+@section('page-small-name','Edit')
 
 @section('styles')
 
@@ -37,17 +37,14 @@
 
 
                             <label for="exampleInputFile">Product Image</label>
-                            <div class="input-group">
+                            <div class="form-group">
+                                <!-- <label for="customFile">Custom File</label> -->
 
                                 <div class="custom-file">
-
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                  <input type="file" class="custom-file-input" id="customFile">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">Upload</span>
-                                </div>
-                            </div>
+                              </div>
                             <br>
 
                             <label for="new-price">Price</label>

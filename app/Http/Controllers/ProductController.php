@@ -96,7 +96,7 @@ class ProductController extends Controller
     {
         //
 
-        if ($request->get('price') != $product->new_price) {
+        if ($request->get('new_price') != $product->new_price) {
             $old_price =  $product->new_price;
         }
 
