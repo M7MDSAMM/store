@@ -137,7 +137,8 @@ class ProductController extends Controller
             'description' => $request->get('description'),
             'skv' => $request->get('skv'),
             'in_stock' => $request->has('in_stock'),
-            'category_id' => $request->get('category_id')
+            'category_id' => $request->get('category_id'),
+            'updated_at'=> now()
         ]));
 
 
