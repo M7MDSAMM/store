@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class DashBoardController extends Controller
@@ -18,8 +19,8 @@ class DashBoardController extends Controller
 
         $category_count = Category::count();
         $active_category = Category::where('active', true)->count();
-        
-        return response()->view('cms.dashboard', ['categories' => $category_count , 'active' => $active_category]);
+        $products = Product::count();
+        return response()->view('cms.dashboard', ['categories' => $category_count , 'active' => $active_category , 'products'=>$products]);
 
 
     }

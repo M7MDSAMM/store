@@ -116,32 +116,29 @@ class ProductController extends Controller
         }
 
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            Storage::disk('public')->delete("products/$product->image");
+            $imageName = time() . '_' . $product->title . '.' . $image->getClientOriginalExtension();
+            $request->file('image')->storePubliclyAs('products', $imageName, ['disk' => 'public']);
+            $product->image = $imageName;
+            $updatedImage = $imageName;
+        }else{
+            $updatedImage = $product->image;
+        }
+
 
 
         $productUpdated = Product::where('product_id', $product->update([
             'title' => $request->get('title'),
+            'image' => $updatedImage,
             'old_price' => $old_price,
             'new_price' => $request->get('new_price'),
             'description' => $request->get('description'),
             'skv' => $request->get('skv'),
             'in_stock' => $request->has('in_stock'),
             'category_id' => $request->get('category_id')
-
-
         ]));
-
-
-        if ($request->hasFile('image')) {
-            Storage::disk('public')->delete("products/$product->image");
-            $image = $request->file('image');
-            $imageName = time() . '_' . $product->t . '.' . $product->getClientOriginalExtension();
-            $request->file('image')->storePubliclyAs('products', $imageName, ['disk' => 'public']);
-            $product->image = $imageName;
-        }
-
-
-
-
 
 
 
