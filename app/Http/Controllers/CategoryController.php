@@ -125,7 +125,7 @@ class CategoryController extends Controller
     {
         //
 
-        $deleted = $category->Delete();
+        $deleted = $category->delete();
         if ($deleted) {
             return redirect()->back()->with('message', 'Deleted Successfully !');
         }
