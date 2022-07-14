@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -123,7 +124,8 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
-        $deleted = $category->delete();
+
+        $deleted = $category->Delete();
         if ($deleted) {
             return redirect()->back()->with('message', 'Deleted Successfully !');
         }

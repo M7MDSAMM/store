@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('skv');
             $table->boolean('in_stock');
             $table->foreignId('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
             $table->timestamps();
         });
     }
