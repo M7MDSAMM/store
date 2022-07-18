@@ -19,6 +19,8 @@ class Product extends Model
 
     protected $fillable = ['title', 'image', 'old_price' , 'new_price' , 'description' , 'skv', 'in_stock','category_id'];
 
-
+    public function options(){
+        return $this->hasMany(Option::class ,'product_id', 'id');
+    }
 
 }

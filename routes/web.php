@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AtributeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashBoardController;
+use App\Http\Controllers\OptionController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +35,8 @@ Auth::routes();
 Route::prefix('cms/')->middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('atributes', AtributeController::class);
+    Route::resource('options', OptionController::class);
     Route::resource('dashboard', DashBoardController::class);
 
 });

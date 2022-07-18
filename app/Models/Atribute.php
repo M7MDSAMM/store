@@ -4,19 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
-class Category extends Model
+class Atribute extends Model
 {
     use HasFactory;
-
-    public function products()
-    {
-        return $this->hasMany(Product::class, 'id', 'category_id');
+    public function options(){
+        return $this->hasMany(Option::class, 'atribute_id' , 'id');
     }
-
     public function getIsActiveAttribute()
     {
         return $this->active == 1 ? 'Active' : 'Not Active';
     }
+
+    protected $fillable = ['name', 'active'];
+
 }
