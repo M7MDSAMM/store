@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Option as RequestsOption;
+use App\Models\Atribute;
 use App\Models\Option;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,11 @@ class OptionController extends Controller
     public function index()
     {
         //
+        $atributes = Atribute::where('active',true)->get();
+        $options = Option::all();
+
+        return response()->view('cms.options.index', ['atributes' => $atributes , 'options' => $options]);
+
     }
 
     /**
@@ -25,6 +32,8 @@ class OptionController extends Controller
     public function create()
     {
         //
+        $atributes = Atribute::where('active', true)->get();
+        return response()->view('cms.options.create', ['atributes' => $atributes]);
     }
 
     /**
@@ -33,9 +42,23 @@ class OptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequestsOption $request)
     {
         //
+        $option =  Option::create([
+            'name' => $request->get('name'),
+            'price' => $request->get('price'),
+            'atribute_id' => $request->get('atribute_id'),
+
+        ]);
+
+
+
+        if ($option) {
+            return back()->with('message', 'Success! Option created');
+        } else {
+            return back()->withErrors('failed', 'Failed! Option not created');
+        }
     }
 
     /**
@@ -58,6 +81,8 @@ class OptionController extends Controller
     public function edit(Option $option)
     {
         //
+        $atributes = Atribute::where('active', true)->get();
+        return response()->view('cms.options.edit', ['atributes' => $atributes , 'option' => $option]);
     }
 
     /**
@@ -67,9 +92,23 @@ class OptionController extends Controller
      * @param  \App\Models\Option  $option
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Option $option)
+    public function update(RequestsOption $request, Option $option)
     {
         //
+        $optionUpdated = Option::where('product_id', $option->update([
+            'name' => $request->get('name'),
+            'price' => $request->get('price'),
+            'atribute_id' => $request->get('atribute_id'),
+            'updated_at'=> now()
+        ]));
+
+
+
+        if ($optionUpdated ) {
+            return redirect()->route('options.index')->with('message', 'Success! Option Edited');
+        } else {
+            return back()->withErrors('failed', 'Failed! Option Update Faild');
+        }
     }
 
     /**
@@ -81,5 +120,9 @@ class OptionController extends Controller
     public function destroy(Option $option)
     {
         //
+        $deleted = $option->delete();
+        if ($deleted) {
+            return redirect()->back()->with('message', 'Deleted Successfully !');
+        }
     }
 }

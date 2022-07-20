@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Atribute as RequestsAtribute;
 use App\Models\Atribute;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ class AtributeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequestsAtribute $request)
     {
         //
         $atribute =  Atribute::create([
@@ -85,7 +86,7 @@ class AtributeController extends Controller
      * @param  \App\Models\Atribute  $atribute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Atribute $atribute)
+    public function update(RequestsAtribute $request, Atribute $atribute)
     {
         //
         $atributeUpdated = Atribute::where('product_id', $atribute->update([

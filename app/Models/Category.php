@@ -19,4 +19,6 @@ class Category extends Model
     {
         return $this->active == 1 ? 'Active' : 'Not Active';
     }
+    protected $fillable = ['title', 'active'];
+
 }
